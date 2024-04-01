@@ -29,7 +29,7 @@ def conv(img, kernel):
             img_conv[i, j] = sum
     return img_conv
 
-kernel = np.ones((1, 1), dtype=np.float32) / 50
+kernel = np.ones((3, 3), dtype=np.float32) / 1000
 img_convolution = conv(gray, kernel)
 
 cv2.imshow('Images', img_convolution)
