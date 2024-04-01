@@ -1,25 +1,19 @@
 import cv2
 import numpy as np
 
-def conv_transform(img):
-    img_copy = img.copy()
+img = cv2.imread('Images/cat_1.jpg')
 
-    for i in range(img.shape[0]):
-        for j in range(img.shape[1]):
-            img_copy[i][j] = img[img.shape[0]-i-1][img.shape[1]-j-1] 
-    return img_copy
-
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+cv2.imshow('Gray', gray)
 def conv(img, kernel):
-    # The img will be grayscale
-    kernel = conv_transform(kernel)
 
-    img_h = img.shape[0] 
+    img_h = img.shape[0]
     img_w = img.shape[1]
 
-    kernel_h = img.shape[0] 
-    kernel_w = img.shape[1]
+    kernel_h = kernel.shape[0]
+    kernel_w = kernel.shape[1]
 
-    h = kernel_h//2 # to get integer value  
+    h = kernel_h//2 # to get integer value
     w = kernel_w//2
 
     img_conv = np.zeros(img.shape)
@@ -30,15 +24,13 @@ def conv(img, kernel):
 
             for m in range(kernel_h):
                 for n in range(kernel_w):
-                    sum = sum + kernel[m][n] * img[i-h+m][j-w+n]
+                    sum += kernel[m, n] * img[i - h + m, j - w + n]
 
-            img_conv[i][j] = sum
-
-    #cv2.imshow('Convolved_img', img_conv)
-
+            img_conv[i, j] = sum
     return img_conv
 
-    #cv2.imwrite('/home/rafael2883/Pictures/img01.jpg', img_conv)
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
-    
+kernel = np.ones((1, 1), dtype=np.float32) / 50
+img_convolution = conv(gray, kernel)
+
+cv2.imshow('Images', img_convolution)
+cv2.waitKey(0)
