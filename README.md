@@ -13,7 +13,7 @@ This repository contains a collection of image processing algorithms implemented
 Ensure you have the following dependencies installed before running the algorithms:
 
 ```sh
-pip install opencv-python
+pip install opencv-python numpy matplotlib
 ```
 
 ## Usage
